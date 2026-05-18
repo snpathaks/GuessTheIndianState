@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guess The Indian State 🇮🇳</title>
+
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Noto+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  
+  <canvas id="particleCanvas"></canvas>
+
+  
+  <div id="app">
+
+    
+    <section id="screen-welcome" class="screen active">
+      <div class="glass-card welcome-card">
+        <div class="india-emblem">🇮🇳</div>
+        <h1 class="game-title">Guess The<br/><span class="gradient-text">Indian State</span></h1>
+        <p class="subtitle">Test your knowledge of India's incredible cultural tapestry through progressive clues.</p>
+
+        <div class="welcome-stats-row">
+          <div class="stat-pill"><i class="fa-solid fa-layer-group"></i> 15 States</div>
+          <div class="stat-pill"><i class="fa-solid fa-lightbulb"></i> 3 Clues Each</div>
+          <div class="stat-pill"><i class="fa-solid fa-stopwatch"></i> 25s Timer</div>
+        </div>
+
+        <div class="badge-legend">
+          <span class="badge-preview explorer">Explorer</span>
+          <span class="badge-preview expert">Cultural Expert</span>
+          <span class="badge-preview maharaja">Maharaja 👑</span>
+        </div>
+
+        <button id="btn-start" class="btn-primary pulse-glow">
+          <i class="fa-solid fa-play"></i> Begin the Journey
+        </button>
+
+        <p class="how-it-works-link" id="how-it-works-toggle">How to play? <i class="fa-solid fa-chevron-down"></i></p>
+        <div id="how-it-works-panel" class="how-panel hidden">
+          <ul>
+            <li><i class="fa-solid fa-star" style="color:#f59e0b"></i> Each state gives up to <strong>3 progressive clues</strong></li>
+            <li><i class="fa-solid fa-trophy" style="color:#a78bfa"></i> Clue 1 → 30 pts &nbsp;|&nbsp; Clue 2 → 20 pts &nbsp;|&nbsp; Clue 3 → 10 pts</li>
+            <li><i class="fa-solid fa-fire" style="color:#f97316"></i> Build streaks for bonus motivation</li>
+            <li><i class="fa-solid fa-clock" style="color:#38bdf8"></i> 25-second countdown — don't dawdle!</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    
+    <section id="screen-game" class="screen hidden">
+
+      
+      <header class="hud glass-hud">
+        <div class="hud-item">
+          <span class="hud-label">Score</span>
+          <span class="hud-value" id="hud-score">0</span>
+        </div>
+        <div class="hud-center">
+          
+          <div id="progress-dots" class="progress-dots"></div>
+        </div>
+        <div class="hud-item">
+          <span class="hud-label">Streak</span>
+          <span class="hud-value streak-value" id="hud-streak">0 <span class="fire hidden" id="fire-emoji">🔥</span></span>
+        </div>
+      </header>
+
+      
+      <div class="timer-bar-wrap">
+        <div id="timer-bar" class="timer-bar"></div>
+        <span id="timer-text" class="timer-text">25</span>
+      </div>
+
+      
+      <div class="glass-card game-card" id="game-card">
+
+        
+        <div class="round-counter">
+          State <span id="round-current">1</span> of <span id="round-total">15</span>
+        </div>
+
+        
+        <div id="clues-container" class="clues-container"></div>
+
+        
+        <div class="points-badge-wrap">
+          <div class="points-badge" id="points-badge">
+            <i class="fa-solid fa-star"></i> <span id="pts-value">30</span> pts available
+          </div>
+        </div>
+
+        
+        <div class="answer-row" id="answer-row">
+          
+          <div class="custom-select-wrap" id="select-wrap">
+            <div class="custom-select-trigger" id="select-trigger" tabindex="0">
+              <i class="fa-solid fa-map-pin"></i>
+              <span id="select-display">Choose a state…</span>
+              <i class="fa-solid fa-chevron-down select-arrow"></i>
+            </div>
+            <div class="custom-select-dropdown hidden" id="select-dropdown">
+              <div class="select-search-wrap">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="state-search" placeholder="Search state…" autocomplete="off" />
+              </div>
+              <ul id="state-list" class="state-list"></ul>
+            </div>
+          </div>
+
+          <button class="btn-submit" id="btn-submit" disabled>
+            <i class="fa-solid fa-check"></i> Submit
+          </button>
+        </div>
+
+        
+        <div class="hint-row">
+          <button class="btn-hint" id="btn-hint">
+            <i class="fa-solid fa-lightbulb"></i> Reveal Next Hint <span class="hint-cost">−10 pts</span>
+          </button>
+          <span class="hint-count" id="hint-count">Hint 1 of 3</span>
+        </div>
+
+        
+        <div id="feedback" class="feedback hidden"></div>
+
+        
+        <button class="btn-next hidden" id="btn-next">
+          Next State <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+
+    </section>
+
+    
+    <section id="screen-gameover" class="screen hidden">
+      <div class="glass-card results-card">
+        <div class="results-badge" id="results-badge"></div>
+        <h2 class="results-title" id="results-title"></h2>
+        <p class="results-subtitle" id="results-subtitle"></p>
+
+        <div class="results-stats">
+          <div class="res-stat glass-mini">
+            <span class="res-stat-icon">🏆</span>
+            <span class="res-stat-val" id="res-score">0</span>
+            <span class="res-stat-lbl">Final Score</span>
+          </div>
+          <div class="res-stat glass-mini">
+            <span class="res-stat-icon">🎯</span>
+            <span class="res-stat-val" id="res-accuracy">0%</span>
+            <span class="res-stat-lbl">Accuracy</span>
+          </div>
+          <div class="res-stat glass-mini">
+            <span class="res-stat-icon">🔥</span>
+            <span class="res-stat-val" id="res-streak">0</span>
+            <span class="res-stat-lbl">Best Streak</span>
+          </div>
+          <div class="res-stat glass-mini">
+            <span class="res-stat-icon">⚡</span>
+            <span class="res-stat-val" id="res-avg">0</span>
+            <span class="res-stat-lbl">Avg Points/State</span>
+          </div>
+        </div>
+
+        
+        <div class="breakdown-title">Round Breakdown</div>
+        <div id="breakdown-list" class="breakdown-list"></div>
+
+        <button id="btn-restart" class="btn-primary">
+          <i class="fa-solid fa-rotate-right"></i> Play Again
+        </button>
+      </div>
+    </section>
+
+  </div>
+
+  
+  <script src="game.js"></script>
+
+</body>
+</html>
