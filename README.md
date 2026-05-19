@@ -24,5 +24,17 @@ Players enter their guesses and receive feedback to narrow down the correct stat
 
 ---
 
-## 📁 Project Structure
+## 🛠 Technologies Used
+
+- **HTML5** — Structure  
+- **CSS3** — Styling  
+- **JavaScript** — Game logic & interactivity
+
+---
+
+## 🚀 How to Run Locally
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/snpathaks/GuessTheIndianState.git
 
