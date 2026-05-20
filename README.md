@@ -15,7 +15,7 @@ Players enter their guesses and receive feedback to narrow down the correct stat
 
 ---
 
-## 🎮 Features
+## 🎮 Features::
 
 ✔ Fully playable in the browser  
 ✔ Provides feedback for guesses  
