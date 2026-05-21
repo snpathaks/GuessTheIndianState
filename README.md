@@ -7,7 +7,7 @@ A fun **browser-based geography guessing game** where players try to identify an
 
 ---
 
-## 🧠 About
+## 🧠 About::
 
 GuessTheIndianState is a simple front-end game built with **HTML, CSS, and JavaScript** that tests your knowledge of Indian states through an interactive guessing experience.
 
