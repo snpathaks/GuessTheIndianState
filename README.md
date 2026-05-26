@@ -1,4 +1,5 @@
-# Guess The Indian State 🎯🇮🇳
+# Guess The Indian State 🎯:
+
 
 A fun **browser-based geography guessing game** where players try to identify an Indian state correctly! Inspired by word-guessing logic and interactive geography quizzes.
 
