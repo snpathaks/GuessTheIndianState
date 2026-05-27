@@ -25,7 +25,7 @@ Players enter their guesses and receive feedback to narrow down the correct stat
 
 ---
 
-## 🛠 Technologies Used
+## 🛠 Technologies Used ::
 
 - **HTML5** — Structure  
 - **CSS3** — Styling  
